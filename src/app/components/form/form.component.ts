@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import {
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
@@ -43,13 +44,16 @@ export class MyFormComponent implements OnInit {
     return this.myForm.get("hobbies") as FormArray;
   }
 
-  createHobbyField(): FormGroup {
-    return this.fb.group({
-      hobby: "",
-    });
+  createHobbyField(): FormControl {
+    return this.fb.control("", Validators.required);
   }
 
   addHobbyField(): void {
+    const allHobbiesValid = this.hobbies.controls.every((control) =>
+      control.valid
+    );
+
+    if (!allHobbiesValid) return;
     this.hobbies.push(this.createHobbyField());
   }
 

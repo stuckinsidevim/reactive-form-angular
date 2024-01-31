@@ -271,24 +271,21 @@
 
   <!-- Hobbies Field -->
   <div formArrayName="hobbies">
-    <div style="position: relative"
-      *ngFor="let hobby of hobbies.controls; let i = index"
-      [formGroupName]="i"
+    <div
+      style="position: relative"
+      *ngFor="let hobbyControl of hobbies.controls; let i = index"
     >
       <input
         type="text"
-        formControlName="hobby"
-        [placeholder]="'Hobby '+ (i+1)"
+        [formControlName]="i"
+        [placeholder]="'Hobby ' + (i + 1) + '*'"
       />
       <button type="button" class="close" (click)="removeHobbyField(i)">
         X
       </button>
       <div
         class="error-msg"
-        *ngIf="
-          hobbies.at(i)?.get('hobby')?.errors?.['required'] &&
-          hobbies.at(i)?.touched
-        "
+        *ngIf="hobbyControl.errors?.['required'] && hobbyControl.touched"
       >
         Hobby is required.
       </div>
