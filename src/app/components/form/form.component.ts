@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {
-  AbstractControl,
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
@@ -24,7 +22,7 @@ export class MyFormComponent implements OnInit {
       lastName: ["", [Validators.required, Validators.maxLength(20)]],
       middleName: ["", Validators.maxLength(20)],
       age: ["", [Validators.required, Validators.min(10), Validators.max(50)]],
-      gender: [""], // Default value can be set
+      gender: ["Male"],
       address: this.fb.group({
         street: ["", [Validators.required, Validators.maxLength(20)]],
         landmark: ["", Validators.maxLength(20)],
@@ -61,10 +59,7 @@ export class MyFormComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      console.log(this.myForm.value);
-      // ... Further processing, like sending the data to an API or service ...
-    } else {
-      this.validateAllFormFields(this.myForm); // Validate all fields
+      alert(JSON.stringify(this.myForm.value, null, 4));
     }
   }
   shouldShowAgeError(): boolean {
@@ -75,24 +70,5 @@ export class MyFormComponent implements OnInit {
     const errors = ageControl.errors;
     const isTouched = ageControl.touched;
     return isTouched && errors && (errors["min"] || errors["max"]);
-  }
-
-  validateAllFormFields(formGroup: FormGroup | FormArray) {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup || control instanceof FormArray) {
-        this.validateAllFormFields(control);
-      }
-    });
-
-    if (formGroup instanceof FormArray) {
-      formGroup.controls.forEach((control: AbstractControl) => {
-        if (control instanceof FormGroup || control instanceof FormArray) {
-          this.validateAllFormFields(control);
-        }
-      });
-    }
   }
 }

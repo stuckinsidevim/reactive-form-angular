@@ -69,3 +69,6 @@ body {
   font-family: "Public Sans", sans-serif;
 }
 
+button {
+  cursor: pointer;
+}

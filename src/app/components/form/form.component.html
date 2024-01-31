@@ -93,7 +93,7 @@
 
   <!-- Gender Field -->
   <div>
-    <label>Gender:</label>
+    <label class="gender-label">Gender:</label>
     <label
       ><input type="radio" formControlName="gender" value="Male" /> Male</label
     >
@@ -271,13 +271,18 @@
 
   <!-- Hobbies Field -->
   <div formArrayName="hobbies">
-    <label>Hobbies:</label>
-    <div
+    <div style="position: relative"
       *ngFor="let hobby of hobbies.controls; let i = index"
       [formGroupName]="i"
     >
-      <input type="text" formControlName="hobby" />
-      <button type="button" (click)="removeHobbyField(i)">X</button>
+      <input
+        type="text"
+        formControlName="hobby"
+        [placeholder]="'Hobby '+ (i+1)"
+      />
+      <button type="button" class="close" (click)="removeHobbyField(i)">
+        X
+      </button>
       <div
         class="error-msg"
         *ngIf="
@@ -288,9 +293,11 @@
         Hobby is required.
       </div>
     </div>
-    <button type="button" (click)="addHobbyField()">Add Hobby</button>
+    <button type="button" (click)="addHobbyField()">+ Add Hobbies</button>
   </div>
 
   <!-- Submit Button -->
-  <button type="submit" class="btn-primary" [disabled]="!myForm.valid">Submit</button>
+  <button type="submit" class="btn-primary" [disabled]="!myForm.valid">
+    Submit
+  </button>
 </form>
