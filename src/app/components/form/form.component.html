@@ -1,0 +1,296 @@
+<form id="my-form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <!-- First Name Field -->
+  <h1>Details Collection Form</h1>
+  <div>
+    <input
+      type="text"
+      id="firstName"
+      formControlName="firstName"
+      placeholder="First Name*"
+    />
+    <div
+      class="error-msg"
+      *ngIf="
+        myForm?.get('firstName')?.errors?.['required'] &&
+        myForm?.get('firstName')?.touched
+      "
+    >
+      First Name is required.
+    </div>
+    <div
+      class="error-msg"
+      *ngIf="
+        myForm?.get('firstName')?.errors?.['maxlength'] &&
+        myForm?.get('firstName')?.touched
+      "
+    >
+      First Name cannot be longer than 20 characters.
+    </div>
+  </div>
+
+  <!-- Last Name Field -->
+  <div>
+    <input
+      type="text"
+      id="lastName"
+      formControlName="lastName"
+      placeholder="Last Name*"
+    />
+    <div
+      class="error-msg"
+      *ngIf="
+        myForm?.get('lastName')?.errors?.['required'] &&
+        myForm?.get('lastName')?.touched
+      "
+    >
+      Last Name is required.
+    </div>
+    <div
+      class="error-msg"
+      *ngIf="
+        myForm?.get('lastName')?.errors?.['maxlength'] &&
+        myForm?.get('lastName')?.touched
+      "
+    >
+      Last Name cannot be longer than 20 characters.
+    </div>
+  </div>
+
+  <!-- Middle Name Field -->
+  <div>
+    <input
+      type="text"
+      id="middleName"
+      formControlName="middleName"
+      placeholder="Middle Name"
+    />
+    <div
+      class="error-msg"
+      *ngIf="
+        myForm?.get('middleName')?.errors?.['maxlength'] &&
+        myForm?.get('middleName')?.touched
+      "
+    >
+      Middle Name cannot be longer than 20 characters.
+    </div>
+  </div>
+
+  <!-- Age Field -->
+  <div>
+    <input type="number" id="age" formControlName="age" placeholder="Age*" />
+    <div
+      class="error-msg"
+      *ngIf="
+        myForm?.get('age')?.errors?.['required'] && myForm?.get('age')?.touched
+      "
+    >
+      Age is required.
+    </div>
+    <div class="error-msg" *ngIf="shouldShowAgeError()">
+      Age must be between 10 and 50.
+    </div>
+  </div>
+
+  <!-- Gender Field -->
+  <div>
+    <label>Gender:</label>
+    <label
+      ><input type="radio" formControlName="gender" value="Male" /> Male</label
+    >
+    <label
+      ><input type="radio" formControlName="gender" value="Female" />
+      Female</label
+    >
+  </div>
+
+  <!-- Address Group -->
+  <div formGroupName="address">
+    <!-- Street Field -->
+    <div>
+      <input
+        type="text"
+        id="street"
+        formControlName="street"
+        placeholder="Street*"
+      />
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('street')?.errors?.['required'] &&
+          myForm?.get('address')?.get('street')?.touched
+        "
+      >
+        Street is required.
+      </div>
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('street')?.errors?.['maxlength'] &&
+          myForm?.get('address')?.get('street')?.touched
+        "
+      >
+        Street cannot be longer than 20 characters.
+      </div>
+    </div>
+
+    <!-- Landmark Field -->
+    <div>
+      <input
+        type="text"
+        id="landmark"
+        formControlName="landmark"
+        placeholder="Landmark"
+      />
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('landmark')?.errors?.['maxlength'] &&
+          myForm?.get('address')?.get('landmark')?.touched
+        "
+      >
+        Landmark cannot be longer than 20 characters.
+      </div>
+    </div>
+
+    <!-- City Field -->
+    <div>
+      <input type="text" id="city" formControlName="city" placeholder="City*" />
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('city')?.errors?.['required'] &&
+          myForm?.get('address')?.get('city')?.touched
+        "
+      >
+        City is required.
+      </div>
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('city')?.errors?.['maxlength'] &&
+          myForm?.get('address')?.get('city')?.touched
+        "
+      >
+        City cannot be longer than 20 characters.
+      </div>
+    </div>
+
+    <!-- State Field -->
+    <div>
+      <input
+        type="text"
+        id="state"
+        formControlName="state"
+        placeholder="State*"
+      />
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('state')?.errors?.['required'] &&
+          myForm?.get('address')?.get('state')?.touched
+        "
+      >
+        State is required.
+      </div>
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('state')?.errors?.['maxlength'] &&
+          myForm?.get('address')?.get('state')?.touched
+        "
+      >
+        State cannot be longer than 20 characters.
+      </div>
+    </div>
+
+    <!-- Zip Code Field -->
+    <div>
+      <input
+        type="text"
+        id="zipCode"
+        formControlName="zipCode"
+        placeholder="ZipCode*"
+      />
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('zipCode')?.errors?.['required'] &&
+          myForm?.get('address')?.get('zipCode')?.touched
+        "
+      >
+        Zip Code is required.
+      </div>
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('zipCode')?.errors?.['maxlength'] &&
+          myForm?.get('address')?.get('zipCode')?.touched
+        "
+      >
+        Zip Code cannot be longer than 20 characters.
+      </div>
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('zipCode')?.errors?.['pattern'] &&
+          myForm?.get('address')?.get('zipCode')?.touched
+        "
+      >
+        Zip Code must be numeric.
+      </div>
+    </div>
+
+    <!-- Country Field -->
+    <div>
+      <input
+        type="text"
+        id="country"
+        formControlName="country"
+        placeholder="Country*"
+      />
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('country')?.errors?.['required'] &&
+          myForm?.get('address')?.get('country')?.touched
+        "
+      >
+        Country is required.
+      </div>
+      <div
+        class="error-msg"
+        *ngIf="
+          myForm?.get('address')?.get('country')?.errors?.['maxlength'] &&
+          myForm?.get('address')?.get('country')?.touched
+        "
+      >
+        Country cannot be longer than 20 characters.
+      </div>
+    </div>
+  </div>
+
+  <!-- Hobbies Field -->
+  <div formArrayName="hobbies">
+    <label>Hobbies:</label>
+    <div
+      *ngFor="let hobby of hobbies.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <input type="text" formControlName="hobby" />
+      <button type="button" (click)="removeHobbyField(i)">X</button>
+      <div
+        class="error-msg"
+        *ngIf="
+          hobbies.at(i)?.get('hobby')?.errors?.['required'] &&
+          hobbies.at(i)?.touched
+        "
+      >
+        Hobby is required.
+      </div>
+    </div>
+    <button type="button" (click)="addHobbyField()">Add Hobby</button>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn-primary" [disabled]="!myForm.valid">Submit</button>
+</form>
